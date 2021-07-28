@@ -51,6 +51,14 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.pull-right {
+  display: flex;
+}
+
+.pull-right .search {
+  padding-right: 10px;
+}
+
 article,
 aside,
 figcaption,

@@ -22,3 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('posts','PostController');
+
+Route::get('search', 'PostController@search')->name('search');
+
+Route::resource('users','UserController');

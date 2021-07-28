@@ -108,4 +108,19 @@ class PostController extends Controller
         return redirect()->route('posts.index')
                         ->with('success','Post deleted successfully');
     }
+
+    public function search(Request $request){
+        // Get the search value from the request
+        $search = $request->search;
+    
+        // Search in the title and descroption columns from the posts table
+        $posts = Post::query()
+            ->where('title', 'like', "%{$search}%")
+            ->orWhere('description', 'like', "%{$search}%")
+            ->paginate(2);
+    
+        // Return the search view with the resluts compacted
+        return view('posts.index', compact('posts'));
+        
+    }
 }
