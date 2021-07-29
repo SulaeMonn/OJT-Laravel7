@@ -7,9 +7,6 @@
             <div class="pull-left">
                 <h2>Update User</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
-            </div>
         </div>
     </div>
    
@@ -73,6 +70,7 @@
             </div>
             <div class="col-md-8 text-center">
               <button type="submit" class="btn btn-primary">Confirm</button>
+              <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
             </div>
         </div>
     </form>

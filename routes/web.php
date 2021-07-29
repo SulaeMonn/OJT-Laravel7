@@ -23,6 +23,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('posts','PostController');
 
-Route::get('search', 'PostController@search')->name('search');
+Route::post('posts/confirm', 'PostController@confirm')->name('posts.confirm');
+
+Route::get('posts-search', 'PostController@search')->name('posts.search');
 
 Route::resource('users','UserController');
+
+Route::post('users/confirm', 'UserController@confirm')->name('users.confirm');
+
+Route::get('users-search', 'UserController@search')->name('users.search');
+
+Route::get('importExportView', 'PostController@importExportView');
+Route::get('export', 'PostController@export')->name('export');
+Route::post('import', 'PostController@import')->name('import');

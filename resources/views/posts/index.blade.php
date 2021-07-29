@@ -1,5 +1,5 @@
 @extends('layouts.app')
- 
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -8,12 +8,24 @@
                     <h2>Post List</h2>
                 </div>
                 <div class="pull-right">
-                    <form action="{{ route('search') }}" method="GET" class="search">
+                    <form action="{{ route('posts.search') }}" method="GET" class="search">
                         <input type="text" name="search" required />
                         <button class="btn btn-success" type="submit">Search</button>
                     </form>
                     <a class="btn btn-success" href="{{ route('posts.create') }}">Add</a>
                 </div>
+            </div>
+        </div>
+
+        <div class="card bg-light mt-3">
+            <div class="card-body">
+                <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="file" class="form-control">
+                    <br>
+                    <button class="btn btn-success">Import User Data</button>
+                    <a class="btn btn-warning" href="{{ route('export') }}">Download</a>
+                </form>
             </div>
         </div>
         <table class="table table-bordered">

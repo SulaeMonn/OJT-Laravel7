@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Exports\PostsExport;
+use App\Imports\PostsImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -30,6 +33,13 @@ class PostController extends Controller
         return view('posts.create');
     }
 
+    public function confirm(Request $request)
+    {
+        $title = $request->title;
+        $description = $request->description;
+
+        return view('posts.confirm',compact('title','description'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -47,7 +57,6 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->description = $request->description;
         $post->status = 1;
-        $post->user_id =1;
         $post->save();
 
         return redirect()->route('posts.index')->with('success','Post created successfully.');
@@ -122,5 +131,30 @@ class PostController extends Controller
         // Return the search view with the resluts compacted
         return view('posts.index', compact('posts'));
         
+    }
+     /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function importExportView()
+    {
+       return view('import');
+    }
+   
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function export() 
+    {
+        return Excel::download(new PostsExport, 'posts.xlsx');
+    }
+   
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function import() 
+    {
+        Excel::import(new PostsImport,request()->file('file'));
+           
+        return back();
     }
 }

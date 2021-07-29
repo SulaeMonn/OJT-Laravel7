@@ -7,9 +7,6 @@
                 <div class="pull-left">
                     <h2>Create post</h2>
                 </div>
-                <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('posts.index') }}"> Back</a>
-                </div>
             </div>
         </div>
 
@@ -24,7 +21,7 @@
             </div>
         @endif
 
-        <form action="" method="POST">
+        <form action="{{route('posts.confirm')}}" method="POST">
             @csrf
 
             <div class="row justify-content-center">
@@ -42,7 +39,8 @@
                     </div>
                 </div>
                 <div class="col-md-8 text-center">
-                    <a class="btn btn-primary" href="{{ url('posts/confirm') }}">Confirm</a>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                    <a class="btn btn-primary" href="{{ route('posts.index') }}"> Back</a>
                 </div>
             </div>
 

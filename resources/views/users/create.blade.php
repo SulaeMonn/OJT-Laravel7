@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Add') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('users.confirm') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group row">
@@ -151,10 +151,12 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Add') }}
+                                        {{ __('Confirm') }}
                                     </button>
+                                    <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                 </div>

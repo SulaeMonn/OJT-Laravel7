@@ -3,12 +3,9 @@
 @section('content')
     <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-12 margin-tb">
+        <div class="col-md-8">
             <div class="pull-left">
                 <h2>Update Post</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('posts.index') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -49,6 +46,7 @@
             </div>
             <div class="col-md-8 text-center">
               <button type="submit" class="btn btn-primary">Confirm</button>
+              <a class="btn btn-primary" href="{{ route('posts.index') }}"> Back</a>
             </div>
         </div>
     </form>
