@@ -21,9 +21,8 @@
         </div>
     @endif
   
-    <form action="{{ route('users.update',$user->id) }}" method="POST">
+    <form action="{{ route('users.editconfirm',$user->id) }}" method="POST">
         @csrf
-        @method('PUT')
    
          <div class="row justify-content-center">
             <div class="col-md-8">
@@ -65,7 +64,8 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <strong>Profile:</strong>
-                    <textarea class="form-control" style="height:150px" name="profile" placeholder="profile">{{ $user->profile }}</textarea>
+                    <input type="text" name="profile" value="{{ $user->profile }}" class="form-control" placeholder="profile">
+                    <img src="{{ asset('storage/uploads/' . $user->profile) }}" height="150px" width="150px">
                 </div>
             </div>
             <div class="col-md-8 text-center">

@@ -101,6 +101,18 @@ class UserController extends Controller
         return view('users.edit',compact('user'));
     }
 
+    public function editconfirm(Request $request, $id)
+    {
+        $user = User::find($id);
+        $name = $request->name;
+        $email = $request->email;
+        $type = $request->type;
+        $phone = $request->phone;
+        $dob = $request->dob;
+        $address = $request->address;
+        return view('users.editconfirm',compact('user','name','email','type','phone','dob','address'));
+    }
+
     /**
      * Update the specified resource in storage.
      *

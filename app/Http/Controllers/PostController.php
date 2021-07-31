@@ -57,6 +57,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->description = $request->description;
         $post->status = 1;
+        $post->user_id = auth()->user()->id;
         $post->save();
 
         return redirect()->route('posts.index')->with('success','Post created successfully.');
@@ -82,6 +83,15 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         return view('posts.edit',compact('post'));
+    }
+
+    public function editconfirm(Request $request, $id)
+    {
+        $post = Post::find($id);
+        $title = $request->title;
+        $description = $request->description;
+        $status = $request->status;
+        return view('posts.editconfirm',compact('post','title','description','status'));
     }
 
     /**
@@ -132,13 +142,6 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
         
     }
-     /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function importExportView()
-    {
-       return view('import');
-    }
    
     /**
     * @return \Illuminate\Support\Collection
@@ -155,6 +158,12 @@ class PostController extends Controller
     {
         Excel::import(new PostsImport,request()->file('file'));
            
-        return back();
+        return redirect()->route('posts.index')
+                        ->with('success','import successfully');
+    }
+
+    public function upload() 
+    {
+        return view('posts.upload');
     }
 }

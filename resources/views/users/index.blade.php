@@ -24,10 +24,12 @@
                         <tr>
                             <td>Name</td>
                             <td>Email</td>
+                            <td>Created User</td>
                             <td>Phone</td>
                             <td>BirthDate</td>
                             <td>Address</td>
-                            <td>Profile</td>
+                            <td>Created Date</td>
+                            <td>Updated Date</td>
                             <td colspan=2>Actions</td>
                         </tr>
                     </thead>
@@ -36,12 +38,13 @@
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>{{ $user->name }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->dob }}</td>
                                 <td>{{ $user->address }}</td>
-                                <td><img src="{{ asset('storage/uploads/' . $user->profile) }}" height="50px"
-                                        width="50px">
-                                </td>
+                                <td>{{ $user->created_at->format('d/m/Y') }}</td>
+                                <td>{{ $user->updated_at->format('d/m/Y') }}</td>
+                                
                                 <td>
                                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
                                 </td>
