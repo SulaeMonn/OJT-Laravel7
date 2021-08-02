@@ -31,7 +31,7 @@
                 <tr>
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->description }}</td>
-                    <td>{{ $post->user_id }}</td>
+                    <td>{{ $post->user->name }}</td>
                     <td>{{ $post->created_at->format('d/m/Y') }}</td>
                     <td><a class="btn btn-primary" href="{{ route('posts.edit', $post->id) }}">Edit</a></td>
                     <td>

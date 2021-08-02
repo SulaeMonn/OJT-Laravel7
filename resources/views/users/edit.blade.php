@@ -68,6 +68,11 @@
                     <img src="{{ asset('storage/uploads/' . $user->profile) }}" height="150px" width="150px">
                 </div>
             </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <a href="{{route('change.password',$user->id)}}"> Change Password </a>
+                </div>
+            </div>
             <div class="col-md-8 text-center">
               <button type="submit" class="btn btn-primary">Confirm</button>
               <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>

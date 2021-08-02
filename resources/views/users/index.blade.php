@@ -32,13 +32,13 @@
                             <td>Updated Date</td>
                             <td colspan=2>Actions</td>
                         </tr>
-                    </thead>
+                    </thead> 
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->name }}</td>
+                                <td>{{ Auth::user()->name }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->dob }}</td>
                                 <td>{{ $user->address }}</td>

@@ -43,7 +43,7 @@
     Address : {{ $address }}
   </div>
   <div class="panel-body">
-    Profile : <img src="{{ asset('storage/uploads/'.$profile) }}" height="50px" width="50px">
+    Profile : <img src="{{ asset('storage/uploads/'.$profile) }}" height="150px" width="150px">
   </div>
 </div>
 

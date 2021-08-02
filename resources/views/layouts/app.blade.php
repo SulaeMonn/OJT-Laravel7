@@ -34,12 +34,15 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
+                    @guest
+
+                    @else
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-link"><a href="{{url('users')}}">Users</a></li>
-                        <li class="nav-link"><a href="{{url('user')}}">User</a></li>
+                        <li class="nav-link"><a href="{{route('users.show',auth()->user()->id)}}">User</a></li>
                         <li class="nav-link"><a href="{{url('posts')}}">Posts</a></li>
                     </ul>
+                    @endguest
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
