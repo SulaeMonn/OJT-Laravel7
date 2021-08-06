@@ -32,11 +32,16 @@
 ## User profile
 * Show login user profile (name, email, type, profile, etc.)
 
+## Setup
+* Clone https://github.com/SulaeMonn/OJT-Laravel7.git
+* To run the project
+```
+php artisan serve
+```
+You can now access the server at http://localhost:8000
+
 ## Usage
 * Login with 'admin@gmail.com' and password 'admin'
-
-## Setup
-* Clone 
 
 ## License
 
