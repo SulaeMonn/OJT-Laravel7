@@ -36,6 +36,8 @@
 * Clone https://github.com/SulaeMonn/OJT-Laravel7.git
 * To run the project
 ```
+php artisan migrate
+php artisan db:seed
 php artisan serve
 ```
 You can now access the server at http://localhost:8000
