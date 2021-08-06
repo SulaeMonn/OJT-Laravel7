@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->date('dob');
             $table->string('address');
             $table->string('profile');
+            $table->integer('created_user_id');
             $table->rememberToken();
             $table->timestamps();
         });

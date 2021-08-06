@@ -1,83 +1,146 @@
 @extends('layouts.app')
-   
+
 @section('content')
     <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="pull-left">
-                <h2>Update User</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ __('Update User') }}</div>
+
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('users.editConfirm', $user->id) }}"
+                            enctype="multipart/form-data">
+                            @csrf
+
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                                        name="name" value="{{ $name }}" required autocomplete="name" autofocus>
+
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="email"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                                        name="email" value="{{ $email }}" required autocomplete="email">
+
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="type" class="col-md-4 col-form-label text-md-right">{{ __('Type') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="type" type="text" class="form-control @error('type') is-invalid @enderror"
+                                        name="type" value="{{ $type }}" required autocomplete="type" autofocus>
+
+                                    @error('type')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="phone"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror"
+                                        name="phone" value="{{ $phone }}" required autocomplete="phone" autofocus>
+
+                                    @error('phone')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="dob"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Date of Birth') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="dob" type="date" class="form-control @error('dob') is-invalid @enderror"
+                                        name="dob" value="{{ $dob }}" required autocomplete="dob" autofocus>
+
+                                    @error('dob')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="address"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
+
+                                <div class="col-md-6">
+                                    <textarea name="address" id="address" cols="30" rows="5"
+                                        class="form-control @error('dob') is-invalid @enderror">{{ $address }}</textarea>
+
+                                    @error('address')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="address"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Profile') }}</label>
+
+                                <div class="col-md-6">
+                                    <input type="file" class="form-control @error('profile') is-invalid @enderror"
+                                        name="profile" value="{{ $profile }}" autofocus>
+                                    <img src="{{ asset('storage/uploads/' . $profile) }}" height="150px"
+                                        width="150px">
+
+                                    @error('profile')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <a href="{{ route('change.password', $user->id) }}"
+                                    class="col-md-4 col-form-label text-md-right"> Change Password </a>
+                            </div>
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Confirm') }}
+                                    </button>
+                                    <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+                                    
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-   
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-  
-    <form action="{{ route('users.editconfirm',$user->id) }}" method="POST">
-        @csrf
-   
-         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="form-group">
-                    <strong>Name:</strong>
-                    <input type="text" name="name" value="{{ $user->name }}" class="form-control" placeholder="name">
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <strong>Email Address:</strong>
-                    <input type="text" name="email" value="{{ $user->email }}" class="form-control" placeholder="email">
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <strong>Type:</strong>
-                    <input type="text" name="type" value="{{ $user->type }}" class="form-control" placeholder="type">
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <strong>Phone:</strong>
-                    <input type="text" name="phone" value="{{ $user->phone }}" class="form-control" placeholder="phone">
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <strong>Date Of Birth:</strong>
-                    <input type="text" name="dob" value="{{ $user->dob }}" class="form-control" placeholder="dob">
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <strong>Address:</strong>
-                    <textarea class="form-control" style="height:150px" name="address" placeholder="address">{{ $user->address }}</textarea>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <strong>Profile:</strong>
-                    <input type="text" name="profile" value="{{ $user->profile }}" class="form-control" placeholder="profile">
-                    <img src="{{ asset('storage/uploads/' . $user->profile) }}" height="150px" width="150px">
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <a href="{{route('change.password',$user->id)}}"> Change Password </a>
-                </div>
-            </div>
-            <div class="col-md-8 text-center">
-              <button type="submit" class="btn btn-primary">Confirm</button>
-              <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
-            </div>
-        </div>
-    </form>
     </div>
 @endsection

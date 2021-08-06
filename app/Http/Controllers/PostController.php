@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+ 
 use App\Post;
 use App\Exports\PostsExport;
 use App\Imports\PostsImport;
@@ -10,14 +10,13 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('auth')->except(['index']);
+    }
+    
     public function index()
     {
-        $posts = Post::latest()->paginate(5);
+        $posts = Post::latest()->paginate(config('constants.paginate.post'));
   
         return view('posts.index',compact('posts'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -35,6 +34,10 @@ class PostController extends Controller
 
     public function confirm(Request $request)
     {
+        $request->validate([
+            'title' => ['required', 'string', 'max:255', 'unique:posts'],
+            'description' => ['required', 'string', 'max:255'],
+        ]);
         $title = $request->title;
         $description = $request->description;
 
@@ -49,8 +52,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'description' => 'required',
+            'title' => ['required', 'string', 'max:255', 'unique:posts'],
+            'description' => ['required', 'string', 'max:255'],
         ]);
 
         $post = new Post;
@@ -85,13 +88,23 @@ class PostController extends Controller
         return view('posts.edit',compact('post'));
     }
 
-    public function editconfirm(Request $request, $id)
+    public function editConfirm(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required|unique:posts,title,'.$id,
+            'description' => ['required', 'string', 'max:255'],
+        ]);
+
         $post = Post::find($id);
         $title = $request->title;
         $description = $request->description;
-        $status = $request->status;
-        return view('posts.editconfirm',compact('post','title','description','status'));
+        if($request->get('status') == null){
+            $status = 0;
+        }
+        else{
+            $status = $request->status;
+        }
+        return view('posts.editConfirm',compact('post','title','description','status'));
     }
 
     /**
@@ -132,13 +145,13 @@ class PostController extends Controller
         // Get the search value from the request
         $search = $request->search;
     
-        // Search in the title and descroption columns from the posts table
+        // Search in the title and description columns from the posts table
         $posts = Post::query()
             ->where('title', 'like', "%{$search}%")
             ->orWhere('description', 'like', "%{$search}%")
             ->paginate(2);
     
-        // Return the search view with the resluts compacted
+        // Return the search view with the results compacted
         return view('posts.index', compact('posts'));
         
     }

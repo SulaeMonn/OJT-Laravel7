@@ -22,52 +22,38 @@
                     </div>
                 @endif
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">Title : {{ $title }}</div>
-                    <div class="panel-body">
-                        Description : {{ $description }}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row justify-content-start mb-4">
+                            <div class="col-6">Title:</div>
+                            <div class="col-6">{{ $title }}</div>
+                        </div>
+                        <div class="row justify-content-start mb-4">
+                            <div class="col-6">Description:</div>
+                            <div class="col-6">{{ $description }}</div>
+                        </div>
+                        <div class="row justify-content-start mb-4">
+                            <div class="col-6">Status:</div>
+                            <div class="col-6">{{ $status }}</div>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        Status : {{ $status }}
+                    <div class="card-footer">
+                        <form action="{{ route('posts.update', $post->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+        
+                            <input type="hidden" name="title" class="form-control" placeholder="Title" value="{{ $title }}">
+                            <input type="hidden" name="description" class="form-control" placeholder="Description"
+                                value="{{ $description }}">
+                            <input type="hidden" name="status" class="form-control" value="{{ $status }}">
+        
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <a href="{{ URL::previous() }}" class="btn btn-primary"> Cancel </a>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
-
-                <form action="{{ route('posts.update', $post->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <input type="hidden" name="title" class="form-control" placeholder="Title"
-                                    value="{{ $title }}">
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <input type="hidden" name="description" class="form-control" placeholder="Description"
-                                    value="{{ $description }}">
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <input type="hidden" name="status" class="form-control" placeholder="Description"
-                                    value="{{ $status }}">
-                            </div>
-                        </div>
-
-                        <div class="mr-5">
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </div>
-
-                        <div class="mr-5">
-                            <a href="{{ URL::previous() }}" class="btn btn-primary"> Cancel </a>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

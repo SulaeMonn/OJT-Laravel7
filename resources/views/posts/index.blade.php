@@ -24,16 +24,15 @@
             <tr>
                 <th>Title</th>
                 <th>Description</th>
-                 <th>Posted User</th>
+                <th>Posted User</th>
                 <th>Posted Date</th>
             </tr>
             @foreach ($posts as $post)
                 <tr>
-                    <td>{{ $post->title }}</td>
+                    <td><a href="{{ route('posts.edit', $post->id) }}">{{ $post->title }}</a></td>
                     <td>{{ $post->description }}</td>
                     <td>{{ $post->user->name }}</td>
                     <td>{{ $post->created_at->format('d/m/Y') }}</td>
-                    <td><a class="btn btn-primary" href="{{ route('posts.edit', $post->id) }}">Edit</a></td>
                     <td>
                         <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
                             @csrf

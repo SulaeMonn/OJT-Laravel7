@@ -36,18 +36,14 @@
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <td>{{ $user->name }}</td>
+                                <td><a href="{{ route('users.edit', $user->id) }}">{{ $user->name }}</a></td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ Auth::user()->name }}</td>
+                                <td>{{ $user->created_user->name }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->dob }}</td>
                                 <td>{{ $user->address }}</td>
                                 <td>{{ $user->created_at->format('d/m/Y') }}</td>
                                 <td>{{ $user->updated_at->format('d/m/Y') }}</td>
-                                
-                                <td>
-                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
-                                </td>
                                 <td>
                                     <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                                         @csrf

@@ -19,6 +19,7 @@ class PostsImport implements ToModel, WithHeadingRow
             'title' => $row['title'],
             'description' => $row['description'], 
             'status' => $row['status'],
+            'user_id' => $row['user_id'],
         ]);
     }
 }

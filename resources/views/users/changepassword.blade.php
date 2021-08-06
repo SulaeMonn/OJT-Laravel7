@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Laravel Change Password Functionality with <a href="https://codingdriver.com/">Codingdriver.com</a> </div>
+                <div class="card-header">Change Password </div>
                 @if(session()->has('error'))
                     <span class="alert alert-danger">
                         <strong>{{ session()->get('error') }}</strong>
