@@ -174,7 +174,7 @@ class PostController extends Controller
         return redirect()->route('posts.index')
                         ->with('success','import successfully');
     }
-
+ 
     public function upload() 
     {
         return view('posts.upload');

@@ -4,10 +4,20 @@ namespace App\Imports;
 
 use App\Post;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class PostsImport implements ToModel, WithHeadingRow
+class PostsImport implements ToModel, WithHeadingRow, WithValidation
 {
+    public function rules(): array
+    {
+    return [
+        'title' => ['required','unique:posts'],
+        'description' => 'required',
+ 
+    ];
+ 
+    }
     /**
     * @param array $row
     *
@@ -15,6 +25,7 @@ class PostsImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+        
         return new Post([
             'title' => $row['title'],
             'description' => $row['description'], 
