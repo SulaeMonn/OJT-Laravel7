@@ -16,6 +16,10 @@ class SoftDelete extends Migration
         Schema::table('posts', function(Blueprint $table) {
             $table->softDeletes();
         });
+
+        Schema::table('users', function(Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -25,8 +29,6 @@ class SoftDelete extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function(Blueprint $table) {
-            $table->dropSoftDeletes();
-        });
+       
     }
 }

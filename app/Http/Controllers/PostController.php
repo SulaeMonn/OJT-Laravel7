@@ -7,17 +7,22 @@ use App\Exports\PostsExport;
 use App\Imports\PostsImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use App\Contracts\Services\Posts\PostServiceInterface;
 
 class PostController extends Controller
 {
-    public function __construct(){
-        $this->middleware('auth')->except(['index']);
+    private $postServiceInterface;
+
+
+    public function __construct(PostServiceInterface $postServiceInterface)
+    {
+        $this->postServiceInterface = $postServiceInterface;
     }
     
     public function index()
     {
-        $posts = Post::latest()->paginate(config('constants.paginate.post'));
-  
+        // $posts = Post::latest()->paginate(config('constants.paginate.post'));
+        $posts = $this->postServiceInterface->getPostList();
         return view('posts.index',compact('posts'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -40,7 +45,6 @@ class PostController extends Controller
         ]);
         $title = $request->title;
         $description = $request->description;
-
         return view('posts.confirm',compact('title','description'));
     }
     /**
@@ -51,17 +55,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => ['required', 'string', 'max:255', 'unique:posts'],
-            'description' => ['required', 'string', 'max:255'],
-        ]);
-
-        $post = new Post;
-        $post->title = $request->title;
-        $post->description = $request->description;
-        $post->status = 1;
-        $post->user_id = auth()->user()->id;
-        $post->save();
+        $posts = $this->postServiceInterface->store($request);
 
         return redirect()->route('posts.index')->with('success','Post created successfully.');
     }
@@ -90,21 +84,11 @@ class PostController extends Controller
 
     public function editConfirm(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'required|unique:posts,title,'.$id,
-            'description' => ['required', 'string', 'max:255'],
-        ]);
-
-        $post = Post::find($id);
-        $title = $request->title;
-        $description = $request->description;
-        if($request->get('status') == null){
-            $status = 0;
-        }
-        else{
-            $status = $request->status;
-        }
-        return view('posts.editConfirm',compact('post','title','description','status'));
+        $post=$this->postServiceInterface->editConfirm($request, $id);
+        $title=$post->title;
+        $description=$post->description;
+        $status=$post->status;
+        return view('posts.editConfirm',compact('post', 'title','description','status'));
     }
 
     /**
@@ -116,13 +100,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-        ]);
-  
-        $post->update($request->all());
-  
+        $post=$this->postServiceInterface->update($request, $post);
         return redirect()->route('posts.index')
                         ->with('success','Product updated successfully');
     }
@@ -135,22 +113,15 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->delete();
-  
+        $post=$this->postServiceInterface->delete($post);
         return redirect()->route('posts.index')
                         ->with('success','Post deleted successfully');
     }
 
     public function search(Request $request){
-        // Get the search value from the request
-        $search = $request->search;
-    
-        // Search in the title and description columns from the posts table
-        $posts = Post::query()
-            ->where('title', 'like', "%{$search}%")
-            ->orWhere('description', 'like', "%{$search}%")
-            ->paginate(2);
-    
+        
+        $posts=$this->postServiceInterface->search($request);
+
         // Return the search view with the results compacted
         return view('posts.index', compact('posts'));
         

@@ -16,7 +16,7 @@
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                        name="name" value="{{ $name }}" required autocomplete="name" autofocus>
+                                        name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -32,7 +32,7 @@
 
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                        name="email" value="{{ $email }}" required autocomplete="email">
+                                        name="email" value="{{ $user->email }}" required autocomplete="email">
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -47,7 +47,7 @@
 
                                 <div class="col-md-6">
                                     <input id="type" type="text" class="form-control @error('type') is-invalid @enderror"
-                                        name="type" value="{{ $type }}" required autocomplete="type" autofocus>
+                                        name="type" value="{{ $user->type }}" required autocomplete="type" autofocus>
 
                                     @error('type')
                                         <span class="invalid-feedback" role="alert">
@@ -63,7 +63,7 @@
 
                                 <div class="col-md-6">
                                     <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror"
-                                        name="phone" value="{{ $phone }}" required autocomplete="phone" autofocus>
+                                        name="phone" value="{{ $user->phone }}" required autocomplete="phone" autofocus>
 
                                     @error('phone')
                                         <span class="invalid-feedback" role="alert">
@@ -79,7 +79,7 @@
 
                                 <div class="col-md-6">
                                     <input id="dob" type="date" class="form-control @error('dob') is-invalid @enderror"
-                                        name="dob" value="{{ $dob }}" required autocomplete="dob" autofocus>
+                                        name="dob" value="{{ $user->dob }}" required autocomplete="dob" autofocus>
 
                                     @error('dob')
                                         <span class="invalid-feedback" role="alert">
@@ -95,7 +95,7 @@
 
                                 <div class="col-md-6">
                                     <textarea name="address" id="address" cols="30" rows="5"
-                                        class="form-control @error('dob') is-invalid @enderror">{{ $address }}</textarea>
+                                        class="form-control @error('dob') is-invalid @enderror">{{ $user->address }}</textarea>
 
                                     @error('address')
                                         <span class="invalid-feedback" role="alert">
@@ -111,8 +111,8 @@
 
                                 <div class="col-md-6">
                                     <input type="file" class="form-control @error('profile') is-invalid @enderror"
-                                        name="profile" value="{{ $profile }}" autofocus>
-                                    <img src="{{ asset('storage/uploads/' . $profile) }}" height="150px"
+                                        name="profile" value="{{ $user->profile }}" autofocus>
+                                    <img src="{{ asset('storage/uploads/' . $user->profile) }}" height="150px"
                                         width="150px">
 
                                     @error('profile')
