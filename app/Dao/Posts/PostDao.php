@@ -42,15 +42,6 @@ class PostDao implements PostDaoInterface
         ]);
 
         $post = Post::find($id);
-        $post->title = $request->title;
-        $post->description = $request->description;
-        if($request->get('status') == null){
-            $post->status = 0;
-        }
-        else{
-            $post->status = $request->status;
-        }
-        $post->save();
         return $post;
     }
 
@@ -65,7 +56,7 @@ class PostDao implements PostDaoInterface
 
         return $post;
     }
-
+ 
     public function delete($post)
     {
         $post->delete();

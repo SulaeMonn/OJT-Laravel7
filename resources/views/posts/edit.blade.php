@@ -46,7 +46,7 @@
                         <div class="col-md-6">
                             <div class="custom-control custom-switch col-md-6 mt-2">
                                 <input type="checkbox" class="custom-control-input @error('status') is-invalid @enderror"
-                                    name="status" id="status" value="{{ $post->status }}" @if ($post->status == 1) checked @endif>
+                                    name="status" id="status" value="{{ $post->status }}" @if($post->status == 1) checked @endif>
                                 <label class="custom-control-label" for="status"></label>
 
                             </div>
@@ -67,8 +67,10 @@
         </form>
     </div>
     <script>
-        $('#status').on('change', function() {
-            this.value = this.checked ? 1 : 0;
-        }).change();
+        $( document ).ready(function() {
+            $('#status').on('change', function() {
+                this.value = this.checked ? 1 : 0;
+            }).change();
+        });
     </script>
 @endsection

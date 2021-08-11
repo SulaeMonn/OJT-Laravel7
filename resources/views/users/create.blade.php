@@ -43,9 +43,9 @@
                                             class="form-control @error('password') is-invalid @enderror" name="password"
                                             required autocomplete="new-password" data-toggle="password">
                                         <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="fa fa-eye"></i>
-                                            </span>
+                                            <div class="input-group-text">
+                                                <i class="bi bi-eye-slash" id="togglePassword"></i>
+                                            </div>
                                         </div>
                                     </div>
                                     @error('password')
@@ -142,5 +142,18 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+            togglePassword.addEventListener('click', function(e) {
+                // toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // toggle the eye / eye slash icon
+                this.classList.toggle('bi-eye');
+            });
+        });
+    </script>
 
 @endsection

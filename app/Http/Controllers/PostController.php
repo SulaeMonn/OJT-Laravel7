@@ -85,9 +85,14 @@ class PostController extends Controller
     public function editConfirm(Request $request, $id)
     {
         $post=$this->postServiceInterface->editConfirm($request, $id);
-        $title=$post->title;
-        $description=$post->description;
-        $status=$post->status;
+        $title=$request->title;
+        $description=$request->description;
+        if($request->get('status') == null){
+            $status = 0;
+        }
+        else{
+            $status = $request->status;
+        }
         return view('posts.editConfirm',compact('post', 'title','description','status'));
     }
 
